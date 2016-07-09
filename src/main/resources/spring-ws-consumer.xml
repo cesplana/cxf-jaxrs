@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd"
+        
+        profile="development">
+
+	<context:annotation-config />
+
+	<!-- <jee:jndi-lookup id="mandator" jndi-name="mandator"/> -->
+
+	<bean id="endClientSearchPSC" class="com.cne.rest.cxf.service.EndClientSearchPSCImpl" />
+
+	<bean id="pki" class="com.cne.rest.cxf.variant.Variant">
+		<property name="name">
+			<bean class="com.cne.rest.cxf.variant.VariantName">
+				<property name="name" value="pki" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="wmi" class="com.cne.rest.cxf.variant.Variant">
+		<property name="name">
+			<bean class="com.cne.rest.cxf.variant.VariantName">
+				<property name="name" value="wmi" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="wmv" class="com.cne.rest.cxf.variant.Variant">
+		<property name="name">
+			<bean class="com.cne.rest.cxf.variant.VariantName">
+				<property name="name" value="wmv" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="pkb" class="com.cne.rest.cxf.variant.Variant">
+		<property name="name">
+			<bean class="com.cne.rest.cxf.variant.VariantName">
+				<property name="name" value="pkb" />
+			</bean>
+		</property>
+	</bean>
+
+	<util:map id="variants">
+		<entry key="privates">
+			<map><!-- variant2 -->
+				<entry key="pki">
+					<map><!-- variant3 -->
+						<entry key="wmi" value-ref="wmi" />
+						<entry key="wmv" value-ref="wmv" />
+					</map>
+				</entry>
+				<entry key="pkb" value-ref="pkb" />
+			</map>
+		</entry>
+		<entry key="corporates">
+			<map>
+				<entry key="pki" value-ref="pki" />
+				<entry key="pkb" value-ref="pkb" />
+			</map>
+		</entry>
+	</util:map>
+
+	<bean id="variantManager" class="com.cne.rest.cxf.variant.VariantManager">
+		<property name="variant" ref="variants" />
+	</bean>
+
+</beans>

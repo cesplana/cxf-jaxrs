@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+	
+	<!-- Bean Declarations for the different Message sources -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>classpath:/bundle/messages</value>
+            </list>
+        </property>
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+	
+	<!--
+        Bean declaration for the Language Session Localization
+    -->
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+        <property name="defaultLocale" value="en"/>
+    </bean>
+    
+    <bean id="localeProvider" class="com.cne.rest.cxf.util.LocaleProvider">
+    	<property name="messageSource" ref="messageSource"/>
+    </bean>
+    
+    <bean id="localeManager" class="com.cne.rest.cxf.locale.LocaleManager">
+    	<property name="mapping">
+    		<list>
+    			<bean class="com.cne.rest.cxf.locale.LocaleMapping">
+    				<property name="attribute" value="firstName.label"/>
+    				<property name="value" value="lbl.title"/>
+    			</bean>
+    			<bean class="com.cne.rest.cxf.locale.LocaleMapping">
+    				<property name="attribute" value="lastName.label"/>
+    				<property name="value" value="lbl.message"/>
+    			</bean>
+    			<bean class="com.cne.rest.cxf.locale.LocaleMapping">
+    				<property name="attribute" value="address"/>
+    				<property name="value" value="lbl.message"/>
+    			</bean>
+    		</list>
+    	</property>
+    </bean>
+    
+</beans>

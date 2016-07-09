@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    @author: Carlos N. Esplana
+	@email: carlos.n.esplana@accenture.com
+    
+	Java Environment variables setup:
+	
+    	Syntax:
+    		java -Dlogback.configurationFile=<path_to_file>/logback.xml 
+    	
+    	Example:
+    		java -Dlogback.configurationFile=C:/User/carlos.n.esplana/configurations/logback.xml 
+    		
+-->
+<configuration debug="true">
+  <!-- 
+  	Standard Appender that outputs all logs to the console.  It is suggested
+  	to turn this off (Comment out) when deploying the application to production
+  	environments.
+  -->
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">  
+    <encoder> 
+      <pattern>[%thread] [%-5d{yyyy/MM/dd HH:mm:ss:SSS}] [%-5level] [%logger] - %msg%n</pattern> 
+    </encoder> 
+  </appender>
+
+ 
+  <appender name="FILEOUT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+  	<!--
+  		No Need to set the file. File Naming will be handled by the rolling policy.
+  	-->
+  	<!-- <file></file> -->
+  	
+  	<!-- Append to the end of the file -->
+  	<append>true</append>
+  	
+  	<!-- Message Pattern to be used -->
+  	<encoder> 
+      <pattern>[%thread] [%-5d{yyyy/MM/dd HH:mm:ss:SSS}] [%-5level] [%logger] [%line] - %msg%n</pattern> 
+      
+      <!-- This will print the pattern at the start of each file -->
+      <outputPatternAsHeader>true</outputPatternAsHeader>
+    </encoder>
+    
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+    	<!-- Daily Rollover grouping files by year/month -->
+    	<fileNamePattern>D:\Apps\logs\%d{yyyy-MM,aux}\cxf-jaxrs-%d{yyyyMMdd}-%i.log</fileNamePattern>
+    	
+    	<!-- Keep History for N days (180 days) -->
+    	<maxHistory>180</maxHistory>
+    	
+    	<!-- Inlcude File Size rolling policy -->
+    	<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP"> 
+    		<!-- Move to new file when 5MB size is reached -->
+        	<maxFileSize>5MB</maxFileSize> 
+      	</timeBasedFileNamingAndTriggeringPolicy> 
+    	
+    	<cleanHistoryOnStart>false</cleanHistoryOnStart>
+    </rollingPolicy>
+    
+    <!--
+    	No need to specify triggering policy.  It is handled by rolling policy.
+    -->
+    <!-- <triggeringPolicy></triggeringPolicy> -->
+    
+    <!-- File Locking disabled -->
+    <prudent>false</prudent>
+  </appender>
+  
+  <!--
+  	These are package level logging configurations.  You can add specific levels/appenders
+  	to a package in this section.  The entry below indicates that all Classes under the
+  	package "com.accenture.sph.zuoradse.logging" will have a DEBUG mode level.
+  -->
+  <logger name="com.accenture.sph.zuoradse.logging" level="debug"></logger>
+ 
+  <!--
+  	The standard logger that handles all logging.
+  -->
+  <root level="debug"> 
+    <appender-ref ref="STDOUT" /> 
+    <appender-ref ref="FILEOUT" /> 
+  </root> 
+</configuration>
