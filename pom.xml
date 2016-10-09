@@ -249,6 +249,24 @@
 		    <version>8.0.4.v20111024</version>
 		</dependency>
 		
+		<dependency>
+		    <groupId>org.apache.xmlgraphics</groupId>
+		    <artifactId>fop</artifactId>
+		    <version>2.1</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>2.5</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>commons-codec</groupId>
+		    <artifactId>commons-codec</artifactId>
+		    <version>1.10</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>

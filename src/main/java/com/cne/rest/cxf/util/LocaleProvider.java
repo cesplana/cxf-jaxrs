@@ -29,6 +29,10 @@ public class LocaleProvider {
         
     }
 
+    /**
+     * 
+     * @param messageSource
+     */
     public static void setMessageSource(MessageSource messageSource) {
         LocaleProvider.messageSource = messageSource;
     }

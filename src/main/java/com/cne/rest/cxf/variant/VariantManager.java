@@ -13,6 +13,11 @@ public class VariantManager {
     
     private Object variant;
 
+    /**
+     * 
+     * @param variants
+     * @throws Exception
+     */
     public void applyAll(List<VariantName> variants) throws Exception {
         
         StringBuilder variantExp = new StringBuilder();

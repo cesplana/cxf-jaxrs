@@ -23,13 +23,14 @@
 		<property name="variantManager" ref="variantManager"/>
 		<property name="localeManager" ref="localeManager"/>
 	</bean>
-	
+	<bean id="printService" class="com.cne.rest.cxf.resource.PrintService"></bean>
 	<bean id="jsonProvider" class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"></bean>
 	
 	<jaxrs:server id="presentation" address="/presentation">
 		<jaxrs:serviceBeans>
 			<ref bean="accountService"/>
 			<ref bean="endClientSearchResource"></ref>
+			<ref bean="printService"></ref>
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<ref bean="jsonProvider"/>
